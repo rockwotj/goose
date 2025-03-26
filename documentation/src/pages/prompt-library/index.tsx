@@ -45,17 +45,17 @@ export default function HomePage() {
       <div className="container mx-auto px-4 p-24">
         <div className="pb-16">
           <h1 className="text-[64px] font-medium text-textProminent">
-            Browse Extensions
+            Prompt Library
           </h1>
           <p className="text-textProminent">
-            Your central directory for discovering and installing extensions.
+            Your central directory for discovering and using effective prompts with Goose.
           </p>
         </div>
 
         <div className="search-container">
           <input
             className="bg-bgApp font-light text-textProminent placeholder-textPlaceholder w-full px-3 py-3 text-[40px] leading-[52px] border-b border-borderSubtle focus:outline-none focus:ring-purple-500 focus:border-borderProminent caret-[#FF4F00] pl-0"
-            placeholder="Search for extensions"
+            placeholder="Search for prompts by keyword"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
