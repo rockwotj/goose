@@ -1,6 +1,4 @@
-import { Star, Download, Terminal, ChevronRight, Info } from "lucide-react";
-import { Badge } from "@site/src/components/ui/badge";
-import { Button } from "@site/src/components/ui/button";
+import { Download, Terminal, ChevronRight, Info } from "lucide-react";
 import Link from "@docusaurus/Link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
