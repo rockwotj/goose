@@ -65,9 +65,25 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                       {prompt.extensions.map((extension, index) => (
                         <div 
                           key={index} 
-                          className="inline-flex items-center px-2 py-1 rounded-full bg-background-subtle border border-borderSubtle"
+                          className={`
+                            inline-flex items-center px-2 py-1 rounded-full 
+                            bg-background-subtle border border-borderSubtle
+                            transition-all duration-150 ease-in-out
+                            hover:bg-background-standard hover:border-borderStandard
+                            group ${extension.is_builtin ? 'cursor-help' : 'cursor-pointer'}
+                          `}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (!extension.is_builtin) {
+                              window.open(getGooseInstallLink(extensionToMCPServer(extension)), '_blank');
+                            }
+                          }}
+                          title={extension.is_builtin ? "Built-in extension - can be enabled in settings" : "Click to install"}
                         >
-                          <span className="text-sm text-textSubtle">{extension.name}</span>
+                          <span className="text-sm text-textStandard group-hover:text-textProminent">
+                            {extension.name}
+                          </span>
                           {extension.is_builtin ? (
                             <span className="ml-2 text-[10px] font-medium uppercase tracking-wider text-textSubtle">
                               Built-in
