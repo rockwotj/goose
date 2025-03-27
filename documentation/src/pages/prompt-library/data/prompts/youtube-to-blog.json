@@ -1,0 +1,14 @@
+{
+  "id": "youtube-to-blog",
+  "title": "Convert YouTube Video to Blog Post",
+  "description": "Transform YouTube video content into well-structured blog posts by extracting and processing the video transcript.",
+  "example_prompt": "Please help me convert this YouTube video into a blog post:\n\nVideo URL: [YouTube video URL]\n\nPlease:\n1. Extract the video transcript\n2. Create a well-structured blog post with:\n   - Engaging title\n   - Key points and main takeaways\n   - Proper formatting and structure\n   - Conclusion\n\nMake sure the content flows naturally and maintains the original message of the video.",
+  "extensions": [
+    {
+      "name": "YouTube Transcript",
+      "command": "youtube-transcript",
+      "is_builtin": false,
+      "environmentVariables": []
+    }
+  ]
+}
