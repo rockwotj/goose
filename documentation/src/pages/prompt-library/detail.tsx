@@ -8,47 +8,8 @@ import { useLocation } from "@docusaurus/router";
 import { useEffect, useState } from "react";
 import Link from "@docusaurus/Link";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Prompt, Extension } from "./types";
-
-// Mock data for development
-const MOCK_PROMPT: Prompt = {
-  id: "web-research",
-  title: "Web Research Assistant",
-  description: "A sophisticated prompt that combines web search capabilities with memory storage to help conduct and retain research findings.",
-  example_prompt: `I'd like you to help me research [topic]. Please:
-1. Search for relevant information using available search tools
-2. Summarize key findings
-3. Store important points in memory for future reference
-4. Provide a structured report of your findings
-
-Please make sure to:
-- Cite sources when possible
-- Distinguish between facts and interpretations
-- Note any conflicting information found
-- Highlight areas that need further research`,
-  extensions: [
-    {
-      name: "Tavily Web Search",
-      command: "tavily-search",
-      is_builtin: false,
-      environmentVariables: [
-        {
-          name: "TAVILY_API_KEY",
-          description: "API key for Tavily web search service",
-          required: true
-        }
-      ]
-    },
-    {
-      name: "Memory",
-      command: "memory",
-      is_builtin: true,
-      environmentVariables: []
-    }
-  ]
-};
-
-
+import type { Prompt, Extension } from "@site/src/types/prompt";
+import { getPromptById } from "@site/src/utils/prompts";
 
 function ExtensionList({ extensions }: { extensions: Extension[] }) {
   const [expandedExtension, setExpandedExtension] = useState<string | null>(null);
@@ -230,15 +191,25 @@ export default function DetailPage(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate loading the prompt data
     const loadPrompt = async () => {
       try {
         setLoading(true);
         setError(null);
         
-        // Here we would normally fetch the prompt data based on the ID
-        // For now, we're using mock data
-        setPrompt(MOCK_PROMPT);
+        // Get the ID from the query parameter
+        const params = new URLSearchParams(location.search);
+        const id = params.get("id");
+        if (!id) {
+          setError("No prompt ID provided");
+          return;
+        }
+
+        const promptData = await getPromptById(id);
+        if (promptData) {
+          setPrompt(promptData);
+        } else {
+          setError("Prompt not found");
+        }
       } catch (err) {
         setError("Failed to load prompt details");
         console.error(err);

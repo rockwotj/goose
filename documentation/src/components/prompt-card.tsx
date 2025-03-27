@@ -4,20 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getGooseInstallLink } from "@site/src/utils/install-links";
 import type { MCPServer } from "@site/src/types/server";
-
-type Extension = {
-  name: string;
-  command: string;
-  is_builtin: boolean;
-  link?: string;
-};
-
-type Prompt = {
-  id: string;
-  title: string;
-  description: string;
-  extensions: Extension[];
-};
+import type { Prompt, Extension } from "@site/src/types/prompt";
 
 function extensionToMCPServer(extension: Extension): MCPServer {
   return {
@@ -27,9 +14,9 @@ function extensionToMCPServer(extension: Extension): MCPServer {
     description: extension.name,
     is_builtin: extension.is_builtin,
     link: extension.link || '',
-    installation_notes: '',
+    installation_notes: extension.installation_notes || '',
     endorsed: false,
-    environmentVariables: [],
+    environmentVariables: extension.environmentVariables || [],
     githubStars: 0
   };
 }

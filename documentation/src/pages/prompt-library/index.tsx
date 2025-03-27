@@ -3,20 +3,8 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Layout from "@theme/Layout";
 import Admonition from '@theme/Admonition';
-
-type Extension = {
-  name: string;
-  command: string;
-  is_builtin: boolean;
-  link?: string;
-};
-
-type Prompt = {
-  id: string;
-  title: string;
-  description: string;
-  extensions: Extension[];
-};
+import type { Prompt } from "@site/src/types/prompt";
+import { searchPrompts } from "@site/src/utils/prompts";
 
 export default function HomePage() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
@@ -24,36 +12,14 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // TODO: Replace with actual prompt loading logic
   useEffect(() => {
     const loadPrompts = async () => {
       try {
         setIsLoading(true);
         setError(null);
         
-        // Example prompt data
-        const mockPrompts: Prompt[] = [
-          {
-            id: "example-prompt",
-            title: "Web Research Assistant",
-            description: "A prompt that combines web search and memory to help with research tasks",
-            extensions: [
-              {
-                name: "Tavily Web Search",
-                command: "tavily-search",
-                is_builtin: false,
-                link: "https://github.com/example/tavily-extension"
-              },
-              {
-                name: "Memory",
-                command: "memory",
-                is_builtin: true
-              }
-            ]
-          }
-        ];
-        
-        setPrompts(mockPrompts);
+        const results = await searchPrompts(searchQuery);
+        setPrompts(results);
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Unknown error";
