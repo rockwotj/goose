@@ -1,5 +1,5 @@
 import Layout from "@theme/Layout";
-import { ArrowLeft, ChevronDown, ChevronUp, Copy, Check } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronUp, Copy, Check, Terminal, Download } from "lucide-react";
 import Admonition from '@theme/Admonition';
 import CodeBlock from '@theme/CodeBlock';
 import { Button } from "@site/src/components/ui/button";
@@ -7,6 +7,7 @@ import { Badge } from "@site/src/components/ui/badge";
 import { useLocation } from "@docusaurus/router";
 import { useEffect, useState } from "react";
 import Link from "@docusaurus/Link";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Prompt, Extension } from "./types";
 
 // Mock data for development
@@ -53,53 +54,87 @@ function ExtensionDetails({ extension }: { extension: Extension }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="border-b border-borderSubtle last:border-0 py-4">
+    <div className="flex flex-col">
       <div 
-        className="flex items-center justify-between cursor-pointer"
-        onClick={() => setIsExpanded(!isExpanded)}
+        className={`
+          inline-flex items-center h-9 px-4 rounded-full 
+          bg-background-subtle border border-borderSubtle
+          transition-all duration-150 ease-in-out
+          hover:bg-background-standard hover:border-borderStandard
+          group ${extension.is_builtin ? 'cursor-help' : 'cursor-pointer'}
+          ${isExpanded ? 'bg-background-standard border-borderStandard' : ''}
+        `}
+        onClick={() => {
+          if (!extension.is_builtin) {
+            setIsExpanded(!isExpanded);
+          }
+        }}
+        title={extension.is_builtin ? "Built-in extension - can be enabled in settings" : "Click to see installation options"}
       >
-        <div className="flex items-center gap-2">
-          <span className="font-medium">{extension.name}</span>
-          {extension.is_builtin && (
-            <Badge variant="secondary" className="text-xs">
+        <span className="text-sm text-textStandard group-hover:text-textProminent">
+          {extension.name}
+        </span>
+        {extension.is_builtin ? (
+          <div className="inline-flex items-center ml-2">
+            <span className="text-sm text-textSubtle">
               Built-in
-            </Badge>
-          )}
-        </div>
-        {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            </span>
+          </div>
+        ) : (
+          <span className="ml-2 text-textSubtle">
+            <Download className="h-4 w-4" />
+          </span>
+        )}
       </div>
-      
-      {isExpanded && (
-        <div className="mt-4 space-y-4 pl-4">
-          {!extension.is_builtin && (
-            <div>
-              <div className="text-sm font-medium mb-1">Installation</div>
-              <CodeBlock language="bash">
-                goose session --with-extension "{extension.command}"
-              </CodeBlock>
-            </div>
-          )}
 
-          {extension.environmentVariables && extension.environmentVariables.length > 0 && (
-            <div>
-              <div className="text-sm font-medium mb-2">Environment Variables</div>
-              {extension.environmentVariables.map((env) => (
-                <div key={env.name} className="mb-2 last:mb-0">
-                  <code className="text-sm">{env.name}</code>
-                  <div className="text-sm text-textSubtle mt-1">
-                    {env.description}
-                    {env.required && (
-                      <Badge variant="secondary" className="ml-2 text-xs">
-                        Required
-                      </Badge>
-                    )}
+      {/* Inline Expansion */}
+      <AnimatePresence>
+        {!extension.is_builtin && isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="mt-2 bg-background-subtle rounded-md p-3 border border-borderSubtle space-y-3">
+              <button
+                className="command-toggle"
+              >
+                <Terminal className="h-4 w-4" />
+                <h4 className="mx-2">Command</h4>
+              </button>
+              <div className="command-content">
+                <code>
+                  goose session --with-extension "{extension.command}"
+                </code>
+              </div>
+
+              {extension.environmentVariables && extension.environmentVariables.length > 0 && (
+                <>
+                  <div className="border-t border-borderSubtle" />
+                  <div>
+                    <div className="text-sm font-medium mb-2">Environment Variables</div>
+                    {extension.environmentVariables.map((env) => (
+                      <div key={env.name} className="mb-2 last:mb-0">
+                        <code className="text-sm">{env.name}</code>
+                        <div className="text-sm text-textSubtle mt-1">
+                          {env.description}
+                          {env.required && (
+                            <Badge variant="secondary" className="ml-2 text-xs">
+                              Required
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              ))}
+                </>
+              )}
             </div>
-          )}
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -149,7 +184,7 @@ function PromptDetail({ prompt }: { prompt: Prompt }) {
 
                   <div>
                     <h2 className="text-2xl font-medium mb-4">Required Extensions</h2>
-                    <div className="border rounded-lg divide-y">
+                    <div className="flex flex-wrap gap-3">
                       {prompt.extensions.map((extension) => (
                         <ExtensionDetails 
                           key={extension.name} 
