@@ -50,9 +50,36 @@ Please make sure to:
 
 
 
-function ExtensionDetails({ extension }: { extension: Extension }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+function ExtensionList({ extensions }: { extensions: Extension[] }) {
+  const [expandedExtension, setExpandedExtension] = useState<string | null>(null);
 
+  const hasExpandedExtension = expandedExtension !== null;
+
+  return (
+    <div className={`flex gap-3 ${hasExpandedExtension ? 'flex-col' : 'flex-wrap'}`}>
+      {extensions.map((extension) => (
+        <ExtensionDetails 
+          key={extension.name}
+          extension={extension}
+          isExpanded={expandedExtension === extension.name}
+          onToggle={(expanded) => {
+            setExpandedExtension(expanded ? extension.name : null);
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ExtensionDetails({ 
+  extension,
+  isExpanded,
+  onToggle
+}: { 
+  extension: Extension;
+  isExpanded: boolean;
+  onToggle: (expanded: boolean) => void;
+}) {
   return (
     <div className="flex flex-col">
       <div 
@@ -66,7 +93,7 @@ function ExtensionDetails({ extension }: { extension: Extension }) {
         `}
         onClick={() => {
           if (!extension.is_builtin) {
-            setIsExpanded(!isExpanded);
+            onToggle(!isExpanded);
           }
         }}
         title={extension.is_builtin ? "Built-in extension - can be enabled in settings" : "Click to see installation options"}
@@ -184,14 +211,7 @@ function PromptDetail({ prompt }: { prompt: Prompt }) {
 
                   <div>
                     <h2 className="text-2xl font-medium mb-4">Required Extensions</h2>
-                    <div className="flex flex-wrap gap-3">
-                      {prompt.extensions.map((extension) => (
-                        <ExtensionDetails 
-                          key={extension.name} 
-                          extension={extension}
-                        />
-                      ))}
-                    </div>
+                    <ExtensionList extensions={prompt.extensions} />
                   </div>
                 </div>
               </div>
