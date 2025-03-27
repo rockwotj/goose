@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getApiUrl, getSecretKey } from '../../../config';
 import { all_goose_modes, filterGooseModes, ModeSelectionItem } from './ModeSelectionItem';
+import ExtensionList from '@/src/components/settings_v2/extensions/subcomponents/ExtensionList';
+import { Button } from '@/src/components/ui/button';
+import { Plus } from 'lucide-react';
+import { GPSIcon } from '@/src/components/ui/icons';
 
 export const ModeSection = () => {
   const [currentMode, setCurrentMode] = useState('auto');
@@ -58,19 +62,27 @@ export const ModeSection = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        {filterGooseModes(currentMode, all_goose_modes, previousApproveModel).map((mode) => (
-          <ModeSelectionItem
-            key={mode.key}
-            mode={mode}
-            currentMode={currentMode}
-            showDescription={true}
-            isApproveModeConfigure={false}
-            handleModeChange={handleModeChange}
-          />
-        ))}
+    <section id="mode">
+      <div className="flex justify-between items-center mb-6 px-8">
+        <h1 className="text-3xl font-medium text-textStandard">Mode</h1>
       </div>
-    </div>
+      <div className="px-8">
+        <p className="text-sm text-textStandard mb-6">
+          Configure how Goose interacts with tools and extensions
+        </p>
+        <div>
+          {filterGooseModes(currentMode, all_goose_modes, previousApproveModel).map((mode) => (
+            <ModeSelectionItem
+              key={mode.key}
+              mode={mode}
+              currentMode={currentMode}
+              showDescription={true}
+              isApproveModeConfigure={false}
+              handleModeChange={handleModeChange}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
