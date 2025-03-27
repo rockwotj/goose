@@ -1,5 +1,7 @@
 import Layout from "@theme/Layout";
-import { ArrowLeft, Info, ChevronDown, ChevronUp, Copy, Check } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronUp, Copy, Check } from "lucide-react";
+import Admonition from '@theme/Admonition';
+import CodeBlock from '@theme/CodeBlock';
 import { Button } from "@site/src/components/ui/button";
 import { Badge } from "@site/src/components/ui/badge";
 import { useLocation } from "@docusaurus/router";
@@ -49,39 +51,7 @@ Please make sure to:
   ]
 };
 
-function PromptCodeBlock({ content }: { content: string }) {
-  const [isCopied, setIsCopied] = useState(false);
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(content);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy text:', err);
-    }
-  };
-
-  return (
-    <div className="relative group">
-      <code className="block bg-bgSubtle dark:bg-gray-900 p-4 rounded text-sm dark:text-gray-300 whitespace-pre-wrap font-mono">
-        {content}
-      </code>
-      <Button 
-        variant="ghost" 
-        size="icon"
-        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-        onClick={handleCopy}
-      >
-        {isCopied ? (
-          <Check className="h-4 w-4 text-green-500" />
-        ) : (
-          <Copy className="h-4 w-4" />
-        )}
-      </Button>
-    </div>
-  );
-}
 
 function ExtensionDetails({ extension }: { extension: Extension }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -108,9 +78,9 @@ function ExtensionDetails({ extension }: { extension: Extension }) {
           {!extension.is_builtin && (
             <div>
               <div className="text-sm font-medium mb-1">Installation</div>
-              <code className="text-sm block bg-bgSubtle p-2 rounded">
+              <CodeBlock language="bash">
                 {extension.command}
-              </code>
+              </CodeBlock>
             </div>
           )}
           
@@ -189,17 +159,15 @@ function PromptDetail({ prompt }: { prompt: Prompt }) {
                     </p>
                   </div>
                   
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <div className="flex items-center gap-2 text-yellow-800">
-                      <Info className="h-5 w-5" />
-                      <span className="font-medium">Note:</span>
-                      <span>Results may vary depending on the model and context.</span>
-                    </div>
-                  </div>
+                  <Admonition type="info">
+                    Results may vary depending on the model and context.
+                  </Admonition>
 
                   <div>
                     <h2 className="text-2xl font-medium mb-4">Example Prompt</h2>
-                    <PromptCodeBlock content={prompt.example_prompt} />
+                    <CodeBlock language="markdown">
+                      {prompt.example_prompt}
+                    </CodeBlock>
                   </div>
 
                   <div>

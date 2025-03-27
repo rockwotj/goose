@@ -2,6 +2,7 @@ import { PromptCard } from "@site/src/components/prompt-card";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Layout from "@theme/Layout";
+import Admonition from '@theme/Admonition';
 
 type Extension = {
   name: string;
@@ -89,7 +90,9 @@ export default function HomePage() {
         </div>
 
         {error && (
-          <div className="p-4 bg-red-50 text-red-600 rounded-md">{error}</div>
+          <Admonition type="danger" title="Error">
+            <p>{error}</p>
+          </Admonition>
         )}
 
         <section className="">
@@ -106,11 +109,13 @@ export default function HomePage() {
           {isLoading ? (
             <div className="py-8 text-xl text-gray-600">Loading prompts...</div>
           ) : prompts.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              {searchQuery
-                ? "No prompts found matching your search."
-                : "No prompts available."}
-            </div>
+            <Admonition type="info">
+              <p>
+                {searchQuery
+                  ? "No prompts found matching your search."
+                  : "No prompts available in the library yet."}
+              </p>
+            </Admonition>
           ) : (
             <div className="cards-grid">
               {prompts.map((prompt) => (
