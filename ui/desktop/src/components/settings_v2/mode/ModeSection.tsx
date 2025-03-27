@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { getApiUrl, getSecretKey } from '../../../config';
 import { all_goose_modes, filterGooseModes, ModeSelectionItem } from './ModeSelectionItem';
-import { useConfig } from '../../ConfigContext';
 
-export const ModeSelection = () => {
+export const ModeSection = () => {
   const [currentMode, setCurrentMode] = useState('auto');
   const [previousApproveModel, setPreviousApproveModel] = useState('');
-  const { upsert } = useConfig();
 
   const handleModeChange = async (newMode: string) => {
-    await upsert('GOOSE_MODE', newMode, false);
+    const storeResponse = await fetch(getApiUrl('/configs/store'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Secret-Key': getSecretKey(),
+      },
+      body: JSON.stringify({
+        key: 'GOOSE_MODE',
+        value: newMode,
+        isSecret: false,
+      }),
+    });
+
+    if (!storeResponse.ok) {
+      const errorText = await storeResponse.text();
+      console.error('Store response error:', errorText);
+      throw new Error(`Failed to store new goose mode: ${newMode}`);
+    }
     // Only track the previous approve if current mode is approve related but new mode is not.
     if (currentMode.includes('approve') && !newMode.includes('approve')) {
       setPreviousApproveModel(currentMode);
