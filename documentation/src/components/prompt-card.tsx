@@ -37,6 +37,8 @@ function extensionToMCPServer(extension: Extension): MCPServer {
 }
 
 export function PromptCard({ prompt }: { prompt: Prompt }) {
+  const [expandedExtension, setExpandedExtension] = useState<string | null>(null);
+
   return (
     <Link 
       to={`/prompt-library/detail?id=${prompt.id}`} 
@@ -64,41 +66,75 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                     <div className="flex flex-wrap gap-3">
                       {prompt.extensions.map((extension, index) => (
                         <div 
-                          key={index} 
-                          className={`
-                            inline-flex items-center px-2 py-1 rounded-full 
-                            bg-background-subtle border border-borderSubtle
-                            transition-all duration-150 ease-in-out
-                            hover:bg-background-standard hover:border-borderStandard
-                            group ${extension.is_builtin ? 'cursor-help' : 'cursor-pointer'}
-                          `}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            if (!extension.is_builtin) {
-                              window.open(getGooseInstallLink(extensionToMCPServer(extension)), '_blank');
-                            }
-                          }}
-                          title={extension.is_builtin ? "Built-in extension - can be enabled in settings" : "Click to install"}
+                          key={index}
+                          className="flex flex-col"
                         >
-                          <span className="text-sm text-textStandard group-hover:text-textProminent">
-                            {extension.name}
-                          </span>
-                          {extension.is_builtin ? (
-                            <span className="ml-2 text-[10px] font-medium uppercase tracking-wider text-textSubtle">
-                              Built-in
+                          <div 
+                            className={`
+                              inline-flex items-center px-2 py-1 rounded-full 
+                              bg-background-subtle border border-borderSubtle
+                              transition-all duration-150 ease-in-out
+                              hover:bg-background-standard hover:border-borderStandard
+                              group ${extension.is_builtin ? 'cursor-help' : 'cursor-pointer'}
+                              ${expandedExtension === extension.command ? 'bg-background-standard border-borderStandard' : ''}
+                            `}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              if (!extension.is_builtin) {
+                                setExpandedExtension(expandedExtension === extension.command ? null : extension.command);
+                              }
+                            }}
+                            title={extension.is_builtin ? "Built-in extension - can be enabled in settings" : "Click to see installation options"}
+                          >
+                            <span className="text-sm text-textStandard group-hover:text-textProminent">
+                              {extension.name}
                             </span>
-                          ) : (
-                            <a
-                              href={getGooseInstallLink(extensionToMCPServer(extension))}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="ml-2 text-textSubtle hover:text-textProminent"
-                            >
-                              <Download className="h-3 w-3" />
-                            </a>
-                          )}
+                            {extension.is_builtin ? (
+                              <span className="ml-2 text-[10px] font-medium uppercase tracking-wider text-textSubtle">
+                                Built-in
+                              </span>
+                            ) : (
+                              <span className="ml-2 text-textSubtle">
+                                <Download className="h-3 w-3" />
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Inline Expansion */}
+                          <AnimatePresence>
+                            {!extension.is_builtin && expandedExtension === extension.command && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="mt-2 bg-background-subtle rounded-md p-3 border border-borderSubtle space-y-3">
+                                  <a 
+                                    href={getGooseInstallLink(extensionToMCPServer(extension))}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-textStandard hover:text-textProminent"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    <Download className="h-4 w-4" /> 
+                                    <span className="text-sm">Install via Desktop</span>
+                                  </a>
+                                  
+                                  <div className="border-t border-borderSubtle" />
+                                  
+                                  <div className="space-y-1.5">
+                                    <div className="text-xs text-textSubtle">Command Line</div>
+                                    <code className="block text-xs bg-background-app p-2 rounded font-mono">
+                                      goose session --with-extension "{extension.command}"
+                                    </code>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
                       ))}
                     </div>
