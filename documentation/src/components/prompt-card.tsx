@@ -71,7 +71,7 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                         >
                           <div 
                             className={`
-                              inline-flex items-center px-4 py-1 rounded-full 
+                              inline-flex items-center h-9 px-4 rounded-full 
                               bg-background-subtle border border-borderSubtle
                               transition-all duration-150 ease-in-out
                               hover:bg-background-standard hover:border-borderStandard
@@ -91,12 +91,14 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                               {extension.name}
                             </span>
                             {extension.is_builtin ? (
-                              <span className="ml-2 text-[10px] font-medium uppercase tracking-wider text-textSubtle">
-                                Built-in
-                              </span>
+                              <div className="inline-flex items-center ml-2">
+                                <span className="text-sm text-textSubtle">
+                                  Built-in
+                                </span>
+                              </div>
                             ) : (
                               <span className="ml-2 text-textSubtle">
-                                <Download className="h-3 w-3" />
+                                <Download className="h-4 w-4" />
                               </span>
                             )}
                           </div>
