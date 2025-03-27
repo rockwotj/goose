@@ -1,8 +1,8 @@
 import type { Prompt } from '../types/prompt';
 
 // Import JSON files directly
-import webResearch from '../data/prompts/web-research.json';
-import codeAssistant from '../data/prompts/code-assistant.json';
+import webResearch from '../pages/prompt-library/data/prompts/web-research.json';
+import codeAssistant from '../pages/prompt-library/data/prompts/code-assistant.json';
 
 // Combined prompts array
 export const PROMPTS: Prompt[] = [
