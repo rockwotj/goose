@@ -65,15 +65,13 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                       {prompt.extensions.map((extension, index) => (
                         <div 
                           key={index} 
-                          className="inline-flex items-center"
+                          className="inline-flex items-center px-2 py-1 rounded-full bg-background-subtle border border-borderSubtle"
                         >
                           <span className="text-sm text-textSubtle">{extension.name}</span>
                           {extension.is_builtin ? (
-                            <div
-                              className="ml-2 text-[10px] font-medium uppercase tracking-wider text-textSubtle/75"
-                            >
+                            <span className="ml-2 text-[10px] font-medium uppercase tracking-wider text-textSubtle">
                               Built-in
-                            </div>
+                            </span>
                           ) : (
                             <a
                               href={getGooseInstallLink(extensionToMCPServer(extension))}
