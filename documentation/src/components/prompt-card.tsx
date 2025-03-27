@@ -71,7 +71,7 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                         >
                           <div 
                             className={`
-                              inline-flex items-center px-2 py-1 rounded-full 
+                              inline-flex items-center px-4 py-1 rounded-full 
                               bg-background-subtle border border-borderSubtle
                               transition-all duration-150 ease-in-out
                               hover:bg-background-standard hover:border-borderStandard
@@ -125,9 +125,14 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                                   
                                   <div className="border-t border-borderSubtle" />
                                   
-                                  <div className="space-y-1.5">
-                                    <div className="text-xs text-textSubtle">Command Line</div>
-                                    <code className="block text-xs bg-background-app p-2 rounded font-mono">
+                                  <button
+                                    className="command-toggle"
+                                  >
+                                    <Terminal className="h-4 w-4" />
+                                    <h4 className="mx-2">Command</h4>
+                                  </button>
+                                  <div className="command-content">
+                                    <code>
                                       goose session --with-extension "{extension.command}"
                                     </code>
                                   </div>
