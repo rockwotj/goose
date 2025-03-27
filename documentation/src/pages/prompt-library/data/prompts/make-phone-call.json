@@ -1,0 +1,21 @@
+{
+  "id": "voip-make-call",
+  "title": "Make a Phone Call",
+  "description": "Have goose place a phone call",
+  "example_prompt": "Please call the number [phone number] and tell a joke",
+  "extensions": [
+    {
+      "name": "VOIP",
+      "command": "vyop",
+      "is_builtin": false,
+      "link": "https://github.com/paulotaylor/voyp-mcp",
+      "environmentVariables": [
+        {
+          "name": "phone_number",
+          "description": "Phone number to call in international format",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

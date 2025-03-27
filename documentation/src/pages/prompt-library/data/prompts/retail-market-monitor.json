@@ -1,0 +1,43 @@
+{
+  "id": "business-retail-market-monitor",
+  "title": "Monitor Top Retailers Market Activity",
+  "description": "Generate and maintain an automated dashboard tracking top retailers' digital presence and market activities",
+  "example_prompt": "1. Search the web for the top 5 most popular retailers.\n2. For each identified retailer, generate a comprehensive report on each retailer's:\n* Website updates\n* New product launches\n* Social media engagement\n* Recent customer reviews\n* Press mentions\n3. Generate an HTML dashboard based on findings for each retailer\n4. Open the dashboard in a browser\n5. Automation Script to pull new results every 30 days",
+  "extensions": [
+    {
+      "name": "Computer Controller",
+      "command": "computercontroller",
+      "is_builtin": true,
+      "environmentVariables": [
+        {
+          "name": "dashboard_path",
+          "description": "Path where the dashboard HTML should be saved",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Tavily",
+      "command": "tavily",
+      "is_builtin": false,
+      "link": "https://github.com/tavily-ai/tavily-mcp",
+      "environmentVariables": [
+        {
+          "name": "num_retailers",
+          "description": "Number of top retailers to monitor",
+          "required": false
+        },
+        {
+          "name": "update_frequency",
+          "description": "How often to update the dashboard in days",
+          "required": false
+        },
+        {
+          "name": "search_type",
+          "description": "Tavily Web Search type (comprehensive or news)",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

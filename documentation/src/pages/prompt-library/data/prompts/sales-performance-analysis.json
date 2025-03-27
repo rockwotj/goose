@@ -1,0 +1,37 @@
+{
+  "id": "sales-performance-analysis",
+  "title": "Monthly Sales Performance Analysis",
+  "description": "Analyze monthly sales data to identify top performing stores and significant trends",
+  "example_prompt": "Please review these two documents named {month1} Orders and {month2} Orders. Can you create insights on top performing stores and any significant movements.",
+  "extensions": [
+    {
+      "name": "Computer Controller",
+      "command": "computercontroller",
+      "is_builtin": true,
+      "environmentVariables": []
+    },
+    {
+      "name": "Developer",
+      "command": "developer",
+      "is_builtin": true,
+      "environmentVariables": []
+    },
+    {
+      "name": "Google Drive",
+      "command": "google_drive",
+      "is_builtin": false,
+      "environmentVariables": [
+        {
+          "name": "month1",
+          "description": "Name of the first month's document",
+          "required": true
+        },
+        {
+          "name": "month2",
+          "description": "Name of the second month's document",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
