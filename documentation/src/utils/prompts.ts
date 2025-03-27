@@ -1,45 +1,36 @@
-import type { Prompt } from '../types/prompt';
+import type { Prompt } from '@site/src/types/prompt';
 
-// Import JSON files directly
-import webResearch from '../pages/prompt-library/data/prompts/web-research.json';
-import codeAssistant from '../pages/prompt-library/data/prompts/code-assistant.json';
+const promptContext = require.context(
+  '../pages/prompt-library/data/prompts',
+  false, 
+  /\.json$/
+);
 
-// Combined prompts array
-export const PROMPTS: Prompt[] = [
-  webResearch,
-  codeAssistant
-];
+// Convert the modules into an array of prompts
+const prompts: Prompt[] = promptContext.keys().map((key) => {
+  const prompt = promptContext(key);
+  return prompt.default || prompt; // handle both ESM and CommonJS modules
+});
 
-// Async fetch all prompts (future API integration point)
-export async function fetchPrompts(): Promise<Prompt[]> {
-  // In the future, this could fetch from an API
-  return PROMPTS;
-}
-
-// Async get prompt by ID
-export async function getPromptById(id: string): Promise<Prompt | null> {
-  const prompts = await fetchPrompts();
-  return prompts.find(p => p.id === id) || null;
-}
-
-// Async search prompts
 export async function searchPrompts(query: string): Promise<Prompt[]> {
-  const prompts = await fetchPrompts();
-  const lowercaseQuery = query.toLowerCase().trim();
+  const searchTerms = query.toLowerCase().split(' ').filter(Boolean);
   
-  if (!lowercaseQuery) {
+  if (!searchTerms.length) {
     return prompts;
   }
 
-  return prompts.filter(prompt => {
-    return (
-      prompt.title.toLowerCase().includes(lowercaseQuery) ||
-      prompt.description.toLowerCase().includes(lowercaseQuery) ||
-      prompt.example_prompt.toLowerCase().includes(lowercaseQuery) ||
-      prompt.extensions.some(ext => 
-        ext.name.toLowerCase().includes(lowercaseQuery) ||
-        ext.command.toLowerCase().includes(lowercaseQuery)
-      )
-    );
+  return prompts.filter((prompt) => {
+    const searchableText = [
+      prompt.title,
+      prompt.description,
+      prompt.example_prompt,
+      ...prompt.extensions.map(ext => ext.name)
+    ].join(' ').toLowerCase();
+
+    return searchTerms.every(term => searchableText.includes(term));
   });
+}
+
+export async function getPromptById(id: string): Promise<Prompt | null> {
+  return prompts.find(prompt => prompt.id === id) || null;
 }
