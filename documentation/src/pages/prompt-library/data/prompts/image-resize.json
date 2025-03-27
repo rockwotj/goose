@@ -1,8 +1,8 @@
 {
   "id": "image-resize",
-  "title": "Resize Image with Aspect Ratio",
-  "description": "Resize an image while maintaining aspect ratio and quality. Perfect for preparing images for web use, social media, or other specific dimension requirements.",
-  "example_prompt": "Please help me resize this image:\n\nImage path: [path to image]\nDesired dimensions: [width]x[height] pixels\n\nPlease maintain the aspect ratio and ensure good image quality in the output.",
+  "title": "Resize an image while maintaining aspect ratio and quality",
+  "description": "Resize an image while maintaining aspect ratio and quality.",
+  "example_prompt": "Resize my image {image_path} to be {width}x{height} pixels. Maintain the aspect ratio and image quality.",
   "extensions": [
     {
       "name": "Developer",
