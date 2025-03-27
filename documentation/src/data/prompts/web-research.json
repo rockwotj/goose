@@ -1,0 +1,28 @@
+{
+  "id": "web-research",
+  "title": "Web Research Assistant",
+  "description": "A sophisticated prompt that combines web search capabilities with memory storage to help conduct and retain research findings.",
+  "example_prompt": "I'd like you to help me research [topic]. Please:\n1. Search for relevant information using available search tools\n2. Summarize key findings\n3. Store important points in memory for future reference\n4. Provide a structured report of your findings\n\nPlease make sure to:\n- Cite sources when possible\n- Distinguish between facts and interpretations\n- Note any conflicting information found\n- Highlight areas that need further research",
+  "extensions": [
+    {
+      "name": "Tavily Web Search",
+      "command": "tavily-search",
+      "is_builtin": false,
+      "link": "https://github.com/example/tavily-extension",
+      "installation_notes": "Requires API key from Tavily",
+      "environmentVariables": [
+        {
+          "name": "TAVILY_API_KEY",
+          "description": "API key for Tavily web search service",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Memory",
+      "command": "memory",
+      "is_builtin": true,
+      "environmentVariables": []
+    }
+  ]
+}

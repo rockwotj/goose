@@ -1,70 +1,36 @@
 import type { Prompt } from '../types/prompt';
 
+// Import JSON files directly
+import webResearch from './prompts/web-research.json';
+import codeAssistant from './prompts/code-assistant.json';
+
+// Add prompts to the array
 export const PROMPTS: Prompt[] = [
-  {
-    id: "web-research",
-    title: "Web Research Assistant",
-    description: "A sophisticated prompt that combines web search capabilities with memory storage to help conduct and retain research findings.",
-    example_prompt: `I'd like you to help me research [topic]. Please:
-1. Search for relevant information using available search tools
-2. Summarize key findings
-3. Store important points in memory for future reference
-4. Provide a structured report of your findings
-
-Please make sure to:
-- Cite sources when possible
-- Distinguish between facts and interpretations
-- Note any conflicting information found
-- Highlight areas that need further research`,
-    extensions: [
-      {
-        name: "Tavily Web Search",
-        command: "tavily-search",
-        is_builtin: false,
-        link: "https://github.com/example/tavily-extension",
-        installation_notes: "Requires API key from Tavily",
-        environmentVariables: [
-          {
-            name: "TAVILY_API_KEY",
-            description: "API key for Tavily web search service",
-            required: true
-          }
-        ]
-      },
-      {
-        name: "Memory",
-        command: "memory",
-        is_builtin: true,
-        environmentVariables: []
-      }
-    ]
-  },
-  {
-    id: "code-assistant",
-    title: "Code Assistant",
-    description: "An AI pair programmer that helps with code review, bug fixing, and implementation suggestions.",
-    example_prompt: `Please help me with the following code task:
-[Describe your coding task or issue]
-
-Consider:
-- Best practices and patterns
-- Performance implications
-- Security considerations
-- Edge cases to handle
-- Testing approach`,
-    extensions: [
-      {
-        name: "Developer",
-        command: "developer",
-        is_builtin: true,
-        environmentVariables: []
-      },
-      {
-        name: "Memory",
-        command: "memory",
-        is_builtin: true,
-        environmentVariables: []
-      }
-    ]
-  }
+  webResearch,
+  codeAssistant
 ];
+
+// Utility function to get a prompt by ID
+export const getPromptById = (id: string): Prompt | undefined => {
+  return PROMPTS.find((prompt) => prompt.id === id);
+};
+
+// Utility function to search prompts
+export const searchPrompts = (query: string): Prompt[] => {
+  const lowercaseQuery = query.toLowerCase().trim();
+  
+  if (!lowercaseQuery) {
+    return PROMPTS;
+  }
+
+  return PROMPTS.filter((prompt) => {
+    return (
+      prompt.title.toLowerCase().includes(lowercaseQuery) ||
+      prompt.description.toLowerCase().includes(lowercaseQuery) ||
+      prompt.example_prompt.toLowerCase().includes(lowercaseQuery) ||
+      prompt.extensions.some((ext) => 
+        ext.name.toLowerCase().includes(lowercaseQuery)
+      )
+    );
+  });
+};
