@@ -30,8 +30,6 @@ Please make sure to:
       name: "Tavily Web Search",
       command: "tavily-search",
       is_builtin: false,
-      link: "https://github.com/example/tavily-extension",
-      installation_notes: "Install using uvx package manager. Requires Tavily API key.",
       environmentVariables: [
         {
           name: "TAVILY_API_KEY",
@@ -44,8 +42,6 @@ Please make sure to:
       name: "Memory",
       command: "memory",
       is_builtin: true,
-      link: "https://github.com/block/goose/tree/main/crates/goose-mcp/src/memory",
-      installation_notes: "This is a built-in extension that comes with goose by default.",
       environmentVariables: []
     }
   ]
@@ -79,14 +75,8 @@ function ExtensionDetails({ extension }: { extension: Extension }) {
             <div>
               <div className="text-sm font-medium mb-1">Installation</div>
               <CodeBlock language="bash">
-                {extension.command}
+                goose session --with-extension "{extension.command}"
               </CodeBlock>
-            </div>
-          )}
-          
-          {extension.installation_notes && (
-            <div className="text-sm text-textSubtle">
-              {extension.installation_notes}
             </div>
           )}
 
@@ -106,19 +96,6 @@ function ExtensionDetails({ extension }: { extension: Extension }) {
                   </div>
                 </div>
               ))}
-            </div>
-          )}
-          
-          {extension.link && (
-            <div>
-              <a 
-                href={extension.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-blue-500 hover:text-blue-600"
-              >
-                View Documentation →
-              </a>
             </div>
           )}
         </div>
