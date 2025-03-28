@@ -10,6 +10,7 @@ import Link from "@docusaurus/Link";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Prompt, Extension } from "@site/src/types/prompt";
 import { getPromptById } from "@site/src/utils/prompts";
+import ReactMarkdown from 'react-markdown';
 
 function ExtensionList({ extensions }: { extensions: Extension[] }) {
   const [expandedExtension, setExpandedExtension] = useState<string | null>(null);
@@ -97,6 +98,20 @@ function ExtensionDetails({
                   goose session --with-extension "{extension.command}"
                 </code>
               </div>
+
+              {extension.installation_notes && (
+                <>
+                  <div className="border-t border-borderSubtle" />
+                  <div>
+                    <div className="text-sm font-medium mb-2">Installation Notes</div>
+                    <div className="text-sm text-textSubtle">
+                      <ReactMarkdown>
+                        {extension.installation_notes}
+                      </ReactMarkdown>
+                    </div>
+                  </div>
+                </>
+              )}
 
               {extension.environmentVariables && extension.environmentVariables.length > 0 && (
                 <>
