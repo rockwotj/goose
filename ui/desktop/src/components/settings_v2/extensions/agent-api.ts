@@ -20,6 +20,7 @@ export async function extensionApiCall(
     type: isActivating ? 'activating' : 'removing',
     verb: isActivating ? 'Activating' : 'Removing',
     pastTense: isActivating ? 'activated' : 'removed',
+    presentTense: isActivating ? 'activate' : 'remove',
   };
 
   // for adding the payload is an extensionConfig, for removing payload is just the name
@@ -75,6 +76,12 @@ export async function extensionApiCall(
   } catch (error) {
     // Final catch-all error handler
     toastService.dismiss(toastId);
+    const msg = error.length < 100 ? error : `Failed to ${action.presentTense} extension`;
+    toastService.error({
+      title: extensionName,
+      msg: msg,
+      traceback: error,
+    });
     console.error(`Error in extensionApiCall for ${extensionName}:`, error);
     throw error;
   }
@@ -147,8 +154,6 @@ export async function addToAgent(
       console.error(`Failed to add extension ${extension.name} to agent: ${enhancedError.message}`);
       throw enhancedError;
     }
-
-    console.error(`Failed to add extension ${extension.name} to agent:`, error);
     throw error;
   }
 }
