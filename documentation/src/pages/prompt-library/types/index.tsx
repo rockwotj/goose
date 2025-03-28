@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '@docusaurus/theme-classic/lib/theme/Layout';
 import CodeBlock from '@docusaurus/theme-classic/lib/theme/CodeBlock';
 
-export default function Types(): JSX.Element {
+const Types: React.FC = () => {
   return (
     <Layout title="Types" description="Type definitions for the Prompt Library">
       <div className="container margin-vert--lg">
@@ -50,4 +50,6 @@ export default function Types(): JSX.Element {
       </div>
     </Layout>
   );
-}
+};
+
+export default Types;
