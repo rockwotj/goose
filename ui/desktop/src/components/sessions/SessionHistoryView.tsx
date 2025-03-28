@@ -66,7 +66,8 @@ const SessionHistoryView: React.FC<SessionHistoryViewProps> = ({
       const shareToken = await createSharedSession(
         config.baseUrl,
         session.messages,
-        session.metadata.description || 'Shared Session'
+        session.metadata.description || 'Shared Session',
+        session.metadata.total_tokens
       );
 
       // Create the shareable link

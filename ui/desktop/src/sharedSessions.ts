@@ -6,6 +6,8 @@ export interface SharedSessionDetails {
   base_url: string;
   description: string;
   messages: Message[];
+  message_count: number;
+  total_tokens: number | null;
 }
 
 /**
@@ -42,8 +44,10 @@ export async function fetchSharedSessionDetails(
       share_token: data.share_token,
       created_at: data.created_at,
       base_url: data.base_url,
-      description: data.description || 'Shared Session',
+      description: data.description,
       messages: data.messages,
+      message_count: data.message_count,
+      total_tokens: data.total_tokens,
     };
   } catch (error) {
     console.error('Error fetching shared session:', error);
@@ -55,13 +59,15 @@ export async function fetchSharedSessionDetails(
  * Creates a new shared session
  * @param baseUrl The base URL for session sharing API
  * @param messages The messages to include in the shared session
- * @param description Optional description for the shared session
+ * @param description Description for the shared session
+ * @param totalTokens Total token count for the session, or null if not available
  * @returns Promise with the share token
  */
 export async function createSharedSession(
   baseUrl: string,
   messages: Message[],
-  description?: string
+  description: string,
+  totalTokens: number | null
 ): Promise<string> {
   try {
     const response = await fetch(`${baseUrl}/sessions/share`, {
@@ -71,8 +77,9 @@ export async function createSharedSession(
       },
       body: JSON.stringify({
         messages,
-        description: description || 'Shared Session',
+        description: description,
         base_url: baseUrl,
+        total_tokens: totalTokens ?? null,
       }),
     });
 
