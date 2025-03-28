@@ -22,8 +22,8 @@ export function PillFilter({ options, selectedValue, onChange }: PillFilterProps
             "px-4 py-2 rounded-full text-sm font-medium transition-colors",
             "border border-borderSubtle",
             selectedValue === option.value
-              ? "bg-surface text-textProminent border-borderProminent"
-              : "bg-background hover:bg-surfaceHighlight text-textStandard"
+              ? "bg-white text-black border-borderProminent"
+              : "bg-bgApp text-textStandard"
           )}
         >
           {option.label}
