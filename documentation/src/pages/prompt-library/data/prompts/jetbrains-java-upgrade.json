@@ -5,7 +5,7 @@
   "example_prompt": "Using the JetBrains IDE tools, upgrade this project to use the latest Java LTS version and refactor the codebase to use newer Java features where beneficial.",
   "extensions": [
     {
-      "name": "jetbrains",
+      "name": "JetBrains",
       "command": "jetbrains",
       "is_builtin": false,
       "environmentVariables": [

@@ -1,11 +1,11 @@
 {
   "id": "developer-github-branch-pr",
-  "title": "Create GitHub Branch and PR",
+  "title": "Create GitHub Branch and Pull Request",
   "description": "Create a new branch, update README, and open a pull request on GitHub",
   "example_prompt": "Create a new branch called hello-world in my angiejones/goose-demo repository. Update the README.md file to say \"this was written by goose\" and commit it. Open a pull request with your changes.",
   "extensions": [
     {
-      "name": "github",
+      "name": "GitHub",
       "command": "github",
       "is_builtin": false,
       "environmentVariables": [
