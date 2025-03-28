@@ -26,8 +26,8 @@ export async function extensionApiCall(
   const extensionName = isActivating ? payload.name : payload;
   let toastId;
 
-  // Step 1: Show loading toast (only for activation)
-  if (isActivating) {
+  // Step 1: Show loading toast (only for activation of stdio)
+  if (isActivating && (payload as ExtensionConfig) && payload.type == 'stdio') {
     toastId = toastService.loading({
       title: extensionName,
       msg: `${action.verb} ${extensionName} extension...`,
