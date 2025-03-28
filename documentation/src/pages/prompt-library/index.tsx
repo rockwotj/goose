@@ -5,12 +5,16 @@ import Layout from "@theme/Layout";
 import Admonition from '@theme/Admonition';
 import type { Prompt } from "@site/src/types/prompt";
 import { searchPrompts } from "@site/src/utils/prompts";
+import { Button } from "@site/src/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function HomePage() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const promptsPerPage = 12; // Number of prompts to show per page
 
   useEffect(() => {
     const loadPrompts = async () => {
@@ -51,7 +55,10 @@ export default function HomePage() {
             className="bg-bgApp font-light text-textProminent placeholder-textPlaceholder w-full px-3 py-3 text-[40px] leading-[52px] border-b border-borderSubtle focus:outline-none focus:ring-purple-500 focus:border-borderProminent caret-[#FF4F00] pl-0"
             placeholder="Search for prompts by keyword"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1); // Reset to first page when search changes
+            }}
           />
         </div>
 
@@ -83,21 +90,52 @@ export default function HomePage() {
               </p>
             </Admonition>
           ) : (
-            <div className="cards-grid">
-              {prompts.map((prompt) => (
-                <motion.div
-                  key={prompt.id}
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <PromptCard key={prompt.id} prompt={prompt} />
-                </motion.div>
-              ))}
-            </div>
+            <>
+              <div className="cards-grid">
+                {prompts
+                  .slice((currentPage - 1) * promptsPerPage, currentPage * promptsPerPage)
+                  .map((prompt) => (
+                    <motion.div
+                      key={prompt.id}
+                      initial={{
+                        opacity: 0,
+                      }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <PromptCard key={prompt.id} prompt={prompt} />
+                    </motion.div>
+                  ))}
+              </div>
+              
+              {/* Pagination Controls */}
+              {prompts.length > promptsPerPage && (
+                <div className="flex justify-center items-center gap-4 mt-8">
+                  <Button
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                    className="flex items-center gap-2"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    Previous
+                  </Button>
+                  
+                  <span className="text-textStandard">
+                    Page {currentPage} of {Math.ceil(prompts.length / promptsPerPage)}
+                  </span>
+                  
+                  <Button
+                    onClick={() => setCurrentPage(prev => Math.min(Math.ceil(prompts.length / promptsPerPage), prev + 1))}
+                    disabled={currentPage >= Math.ceil(prompts.length / promptsPerPage)}
+                    className="flex items-center gap-2"
+                  >
+                    Next
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </section>
       </div>
