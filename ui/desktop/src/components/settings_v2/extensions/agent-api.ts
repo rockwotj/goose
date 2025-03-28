@@ -142,7 +142,7 @@ export async function addToAgent(
     // Check if this is a 428 error and make the message more descriptive
     if (error.message && error.message.includes('428')) {
       const enhancedError = new Error(
-        'Agent is not initialized. Please initialize the agent first. (428 Precondition Required)'
+        'Failed to add extension. Goose Agent was still starting up. Please try again.'
       );
       console.error(`Failed to add extension ${extension.name} to agent: ${enhancedError.message}`);
       throw enhancedError;
