@@ -6,7 +6,6 @@ import Admonition from '@theme/Admonition';
 import type { Prompt } from "@site/src/types/prompt";
 import { searchPrompts } from "@site/src/utils/prompts";
 import { Button } from "@site/src/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function HomePage() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
@@ -14,14 +13,14 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const promptsPerPage = 12; // Number of prompts to show per page
+  const promptsPerPage = 9; 
 
   useEffect(() => {
     const loadPrompts = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        
+
         const results = await searchPrompts(searchQuery);
         setPrompts(results);
       } catch (err) {
@@ -72,9 +71,8 @@ export default function HomePage() {
           <div className={`${searchQuery ? "pb-2" : "pb-8"}`}>
             <p className="text-gray-600">
               {searchQuery
-                ? `${prompts.length} result${
-                    prompts.length > 1 ? "s" : ""
-                  } for "${searchQuery}"`
+                ? `${prompts.length} result${prompts.length > 1 ? "s" : ""
+                } for "${searchQuery}"`
                 : ""}
             </p>
           </div>
@@ -108,30 +106,28 @@ export default function HomePage() {
                     </motion.div>
                   ))}
               </div>
-              
+
               {/* Pagination Controls */}
               {prompts.length > promptsPerPage && (
                 <div className="flex justify-center items-center gap-4 mt-8">
                   <Button
-                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
-                    className="flex items-center gap-2"
+                    className="px-4 py-2 rounded-md border border-border bg-surfaceHighlight hover:bg-surface text-textProminent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
-                    <ChevronLeft className="h-4 w-4" />
                     Previous
                   </Button>
-                  
-                  <span className="text-textStandard">
+
+                  <span className="text-textProminent">
                     Page {currentPage} of {Math.ceil(prompts.length / promptsPerPage)}
                   </span>
-                  
+
                   <Button
                     onClick={() => setCurrentPage(prev => Math.min(Math.ceil(prompts.length / promptsPerPage), prev + 1))}
                     disabled={currentPage >= Math.ceil(prompts.length / promptsPerPage)}
-                    className="flex items-center gap-2"
+                    className="px-4 py-2 rounded-md border border-border bg-surfaceHighlight hover:bg-surface text-textProminent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     Next
-                    <ChevronRight className="h-4 w-4" />
                   </Button>
                 </div>
               )}
