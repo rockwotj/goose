@@ -11,18 +11,18 @@ MCP this, MCP that, what exactly is it, and can you use them if you're not a dev
 
 <!--truncate-->
 
-# What is MCP?
+## What is MCP?
 
 MCP stands for [Model Context Protocol](https://modelcontextprotocol.io/introduction), an open standard created by Anthropic.
 
-Let's say you've been tasked to use AI as much as you can at work, to save as much time as possible. So you go off and learn about large language models (LLMs) like OpenAI or Claude, and start chatting with one. It's amazing being able to chat with AI and have it instantly answer questions or have it tell you how to do something, but how about getting the AI to do stuff for you?
+Let's say you're looking for ways to use AI at work to become more efficient and save as much time as possible. So you go off and learn about large language models (LLMs) like OpenAI or Claude, and start chatting with one. It's amazing being able to chat with AI and have it instantly answer questions or have it tell you how to do something, but how about getting the AI to do stuff for you?
 
-Now there are AI agents, or AI systems, that can take actions and make decisions for you. But in order to have your AI agent interact with your systems, like Google Drive, Asana, or Slack, there wasn't a standard way to do it. At least not without figuring it out from scratch each time you needed your AI agent to work with what you need it to work with. For one that's super tedious.
+Now there are AI agents, or AI assistants, that can take actions and make decisions for you. But in order to have your AI agent interact with your systems, like Google Drive, Asana, or Slack, there wasn't a standard way to do it. At least not without figuring it out from scratch each time you needed your AI agent to work with what you need it to work with. That's super tedious.
 
-That's exactly where MCP comes in. Best part is, you don't need to be a developer to start using them! MCP essentially allows you to give AI agents access to your external systems without having to code. You can think of MCP as the "glue" in between a system and your AI agent, or like the USB-C of AI integrations.
+That's exactly where MCP comes in. Best part is, you don't need to be a developer to start using them! MCP essentially allows you to give AI agents access to your external systems without having to code. You can think of MCP as the connector for a system and your AI agent, or like the USB-C of AI integrations.
 
-# Adding MCP Servers is SO Easy
-To start adding MCP servers to your AI agent is actually super simple. The hardest part is configuration, and even that is pretty straightforward. For this example, we'll use Goose as our AI agent. All you have to do to add an MCP to Goose is:
+## Adding MCP Servers
+The tool that connects AI agents to different apps and services so they can work together automatically is called an **MCP Server**. I'll walk you through how to add MCP Servers to your AI agent. For this example, we'll use Goose as our AI agent. To add an MCP to Goose:
 1. [Install Goose](https://block.github.io/goose/docs/getting-started/installation), then [configure the LLM of your choice](https://block.github.io/goose/docs/getting-started/providers) (OpenAI, Anthropic, etc.).
 2. Pick the MCP server you want to use and view its installation instructions.
 3. Add it to your AI agent. In Goose, you can add MCP servers under [Settings > Extensions](https://block.github.io/goose/docs/getting-started/using-extensions).)
