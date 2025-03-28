@@ -12,6 +12,7 @@
         {
           "name": "ASANA_ACCESS_TOKEN",
           "description": "Your Asana Personal Access Token.",
+          "installation_notes": "Use OpenAI's GPT-4o was used for this prompt",
           "required": true
         }
       ]
