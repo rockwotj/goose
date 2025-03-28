@@ -1,0 +1,25 @@
+{
+  "id": "dev-api-endpoints-analysis",
+  "title": "Analyze App Endpoints and Interfaces",
+  "description": "Review application routing configuration and summarize all external interfaces",
+  "example_prompt": "Please analyze the application's routing configuration found in `config/routes.rb` and summarize all external interfaces, including API endpoints, service integrations, and public routes.",
+  "extensions": [
+    {
+      "name": "Developer",
+      "command": "developer",
+      "is_builtin": true,
+      "environmentVariables": [
+        {
+          "name": "config_path",
+          "description": "Path to the routing configuration file (e.g., routes.rb, urls.py, routes.js)",
+          "required": true
+        },
+        {
+          "name": "framework",
+          "description": "The web framework being used (e.g., Rails, Django, Express)",
+          "required": false
+        }
+      ]
+    }
+  ]
+}
