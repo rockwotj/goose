@@ -2,6 +2,8 @@
   "id": "voyp-make-call",
   "title": "Make a Phone Call",
   "description": "Have goose place a phone call",
+  "category": "productivity",
+  "featured": true,
   "example_prompt": "Please call the number [phone number] and tell a joke",
   "extensions": [
     {

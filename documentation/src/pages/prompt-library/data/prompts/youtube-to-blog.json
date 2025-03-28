@@ -2,6 +2,8 @@
   "id": "youtube-to-blog",
   "title": "Convert YouTube Video to Blog Post",
   "description": "Generate a blog post from a YouTube video transcript",
+  "category": "productivity",
+  "featured": true,
   "example_prompt": "Get the transcript from this youtube video [link to video]. Then, summarize it into a blog post.",
   "extensions": [
     {

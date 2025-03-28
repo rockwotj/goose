@@ -2,6 +2,7 @@
   "id": "image-resize",
   "title": "Resize Image with Aspect Ratio",
   "description": "Resize an image while maintaining aspect ratio and quality.",
+  "category": "productivity",
   "example_prompt": "Resize my image {image_path} to be {width}x{height} pixels. Maintain the aspect ratio and image quality.",
   "extensions": [
     {

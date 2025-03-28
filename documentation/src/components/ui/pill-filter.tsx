@@ -1,0 +1,34 @@
+import { cn } from "@site/src/utils/cn";
+
+export type PillFilterOption = {
+  label: string;
+  value: string;
+};
+
+interface PillFilterProps {
+  options: PillFilterOption[];
+  selectedValue: string;
+  onChange: (value: string) => void;
+}
+
+export function PillFilter({ options, selectedValue, onChange }: PillFilterProps) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map((option) => (
+        <button
+          key={option.value}
+          onClick={() => onChange(option.value)}
+          className={cn(
+            "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+            "border border-borderSubtle",
+            selectedValue === option.value
+              ? "bg-surface text-textProminent border-borderProminent"
+              : "bg-background hover:bg-surfaceHighlight text-textStandard"
+          )}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  );
+}

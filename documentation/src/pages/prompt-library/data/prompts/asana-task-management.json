@@ -2,6 +2,7 @@
   "id": "asana-task-management",
   "title": "Manage Asana Tasks",
   "description": "Create, update, and manage Asana tasks and projects",
+  "category": "productivity",
   "example_prompt": "Create a new task in my Asana workspace called 'Review Q4 metrics' and set the due date to next Friday. Then, find all tasks assigned to me that are due this week and summarize them.",
   "extensions": [
     {

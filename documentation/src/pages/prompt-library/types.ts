@@ -13,10 +13,14 @@ export type Extension = {
   environmentVariables?: EnvironmentVariable[];
 };
 
+export type Category = "business" | "technical" | "productivity";
+
 export type Prompt = {
   id: string;
   title: string;
   description: string;
   example_prompt: string;
   extensions: Extension[];
+  category: Category;
+  featured?: boolean;
 };

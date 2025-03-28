@@ -2,6 +2,7 @@
   "id": "developer-js-express-setup",
   "title": "Scaffold JavaScript Boilerplate",
   "description": "Initialize a new JavaScript project with Express, Mongoose, Nodemon, and Dotenv",
+  "category": "technical",
   "example_prompt": "Set up a new JavaScript project with Express, Mongoose, Nodemon, and Dotenv. Fetch the latest package versions, generate a README with those versions, and initialize Git",
   "extensions": [
     {

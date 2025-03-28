@@ -2,6 +2,7 @@
   "id": "sales-performance-analysis",
   "title": "Monthly Sales Performance Analysis",
   "description": "Analyze monthly sales data to identify top performing stores and significant trends",
+  "category": "business",
   "example_prompt": "Please review these two documents named {month1} Orders and {month2} Orders. Can you create insights on top performing stores and any significant movements.",
   "extensions": [
     {

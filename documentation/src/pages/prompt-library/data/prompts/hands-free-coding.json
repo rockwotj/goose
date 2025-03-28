@@ -2,6 +2,7 @@
   "id": "hands-free-coding",
   "title": "Hands-free Coding",
   "description": "Use your voice to code",
+  "category": "technical",
   "example_prompt": "I'd like to speak instead of typing",
   "extensions": [
     {
