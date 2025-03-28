@@ -12,7 +12,7 @@
     },
     {
       "name": "Google Drive",
-      "command": "google_drive",
+      "command": "npx -y @modelcontextprotocol/server-gdrive",
       "is_builtin": false,
       "environmentVariables": [
         {

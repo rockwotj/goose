@@ -6,7 +6,7 @@
   "extensions": [
     {
       "name": "YouTube Transcript",
-      "command": "youtube-transcript",
+      "command": "uvx --from git+https://github.com/jkawamoto/mcp-youtube-transcript mcp-youtube-transcript",
       "is_builtin": false,
       "environmentVariables": []
     }

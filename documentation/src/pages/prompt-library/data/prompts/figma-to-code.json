@@ -12,7 +12,7 @@
     },
     {
       "name": "Figma",
-      "command": "figma",
+      "command": "npx -y @hapins/figma-mcp",
       "is_builtin": false,
       "environmentVariables": [
         {

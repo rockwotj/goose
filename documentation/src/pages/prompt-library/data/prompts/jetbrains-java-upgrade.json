@@ -6,7 +6,7 @@
   "extensions": [
     {
       "name": "JetBrains",
-      "command": "jetbrains",
+      "command": "npx -y @jetbrains/mcp-proxy",
       "is_builtin": false,
       "environmentVariables": [
         {

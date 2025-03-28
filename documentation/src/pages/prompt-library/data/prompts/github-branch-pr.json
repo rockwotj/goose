@@ -6,7 +6,7 @@
   "extensions": [
     {
       "name": "GitHub",
-      "command": "github",
+      "command": "npx -y @modelcontextprotocol/server-github",
       "is_builtin": false,
       "environmentVariables": [
         {
