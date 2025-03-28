@@ -32,7 +32,7 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
       <div className="extension-title h-full">
         <div className="server-card interactive w-full h-full">
           <div className="card-glow"></div>
-          <div className="card">
+          <div className="prompt-card">
             <div className="card-header">
               <div className="card-header-content">
                 <span className="home-page-server-name">
@@ -40,7 +40,7 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                 </span>
               </div>
             </div>
-            <div className="card-content">
+            <div className="prompt-card-content">
               <div>
                 <div>
                   <p className="card-description">{prompt.description}</p>
