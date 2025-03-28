@@ -17,7 +17,7 @@ MCP stands for [Model Context Protocol](https://modelcontextprotocol.io/introduc
 
 Let's say you've been tasked to use AI as much as you can at work, to save as much time as possible. So you go off and learn about large language models (LLMs) like OpenAI or Claude, and start chatting with one. It's amazing being able to chat with AI and have it instantly answer questions or have it tell you how to do something, but how about getting the AI to do stuff for you?
 
-Now there are AI agents, or AI systems, that can take actions and make decisions for you. But in order to have your AI agent interact with your systems, like Google Drive, Asana, or Slack, there wasn't a standard way to do it. At least not without figuring it our from scratch each time you needed your AI agent to work with what you need it to work with. For one that's super tedious.
+Now there are AI agents, or AI systems, that can take actions and make decisions for you. But in order to have your AI agent interact with your systems, like Google Drive, Asana, or Slack, there wasn't a standard way to do it. At least not without figuring it out from scratch each time you needed your AI agent to work with what you need it to work with. For one that's super tedious.
 
 That's exactly where MCP comes in. Best part is, you don't need to be a developer to start using them! MCP essentially allows you to give AI agents access to your external systems without having to code. You can think of MCP as the "glue" in between a system and your AI agent, or like the USB-C of AI integrations.
 
