@@ -7,10 +7,16 @@
   "example_prompt": "Help me organize my project tasks in Asana. Create sections for Planning, Development, QA, and Launch. Include task dependencies, time estimates, and assign appropriate team members.",
   "extensions": [
     {
-      "name": "Developer",
-      "command": "developer",
-      "is_builtin": true,
-      "environmentVariables": []
+      "name": "Asana",
+      "command": "npx -y @modelcontextprotocol/server-asana",
+      "is_builtin": false,
+      "environmentVariables": [
+        {
+          "name": "ASANA_ACCESS_TOKEN",
+          "description": "Your Asana Personal Access Token.",
+          "required": true
+        }
+      ]
     }
   ]
 }

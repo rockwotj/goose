@@ -7,10 +7,12 @@
   "example_prompt": "Analyze this blog post for signs of AI-generated content. Provide suggestions to make it more authentic and human-like while maintaining the key message.",
   "extensions": [
     {
-      "name": "Developer",
-      "command": "developer",
+      "name": "Computer Controller",
+      "command": "computercontroller",
       "is_builtin": true,
-      "environmentVariables": []
+      "environmentVariables": [
+
+      ]
     }
   ]
 }

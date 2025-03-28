@@ -7,10 +7,29 @@
   "example_prompt": "Analyze our sales performance data for the last quarter. Identify trends, top performing products, and areas for improvement. Generate visualizations for key metrics.",
   "extensions": [
     {
-      "name": "Developer",
-      "command": "developer",
+      "name": "Computer Controller",
+      "command": "computercontroller",
       "is_builtin": true,
-      "environmentVariables": []
+      "environmentVariables": [
+
+      ]
+    },
+    {
+      "name": "Google Drive",
+      "command": "npx -y @modelcontextprotocol/server-gdrive",
+      "is_builtin": false,
+      "environmentVariables": [
+        {
+          "name": "GDRIVE_OAUTH_PATH",
+          "description": "/Users/<username>/.config/gcp-oauth.keys.json / ",
+          "required": true
+        },
+        {
+          "name": "GDRIVE_CREDENTIALS_PATH",
+          "description": "/Users/<username>/.config/.gdrive-server-credentials.json /",
+          "required": true
+        }
+      ]
     }
   ]
 }

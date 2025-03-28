@@ -7,10 +7,16 @@
   "example_prompt": "Set up automated tracking for our delivery pipeline. Monitor build times, deployment frequency, failure rates, and recovery time. Create dashboards for key metrics.",
   "extensions": [
     {
-      "name": "Developer",
-      "command": "developer",
-      "is_builtin": true,
-      "environmentVariables": []
+      "name": "Google Maps",
+      "command": "npx -y @modelcontextprotocol/server-google-maps",
+      "is_builtin": false,
+      "environmentVariables": [
+        {
+          "name": "GOOGLE_MAPS_API_KEY",
+          "description": "<YOUR_TOKEN>",
+          "required": true
+        }
+      ]
     }
   ]
 }

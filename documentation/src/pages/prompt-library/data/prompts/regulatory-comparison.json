@@ -7,10 +7,26 @@
   "example_prompt": "Compare regulatory requirements for our product across different regions. Identify key differences, compliance gaps, and required actions for each market.",
   "extensions": [
     {
-      "name": "Developer",
-      "command": "developer",
+      "name": "Computer Controller",
+      "command": "computercontroller",
       "is_builtin": true,
-      "environmentVariables": []
+      "environmentVariables": [
+        {
+          "name": "document_name",
+          "description": "The name/title of the regulatory document being compared",
+          "required": true
+        },
+        {
+          "name": "prior_version_url",
+          "description": "URL to the previous version of the document",
+          "required": true
+        },
+        {
+          "name": "final_version_url",
+          "description": "URL to the final/current version of the document",
+          "required": true
+        }
+      ]
     }
   ]
 }

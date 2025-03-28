@@ -7,10 +7,16 @@
   "example_prompt": "Review our system's security patterns and implement best practices. Focus on authentication, authorization, data encryption, and secure communication. Include compliance requirements and testing procedures.",
   "extensions": [
     {
-      "name": "Developer",
-      "command": "developer",
-      "is_builtin": true,
-      "environmentVariables": []
+      "name": "Knowledge Graph",
+      "command": "npx -y @modelcontextprotocol/server-memory",
+      "is_builtin": false,
+      "environmentVariables": [
+        {
+          "name": "domain",
+          "description": "Security domain to focus on (e.g., 'web', 'mobile', 'api')",
+          "required": false
+        }
+      ]
     }
   ]
 }

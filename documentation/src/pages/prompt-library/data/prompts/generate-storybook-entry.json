@@ -10,7 +10,13 @@
       "name": "Developer",
       "command": "developer",
       "is_builtin": true,
-      "environmentVariables": []
+      "environmentVariables": [
+        {
+          "name": "component_name",
+          "description": "Name of the component to document",
+          "required": true
+        }
+      ]
     }
   ]
 }

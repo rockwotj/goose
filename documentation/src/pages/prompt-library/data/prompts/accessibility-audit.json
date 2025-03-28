@@ -10,7 +10,9 @@
       "name": "Puppeteer",
       "command": "npx -y @modelcontextprotocol/server-puppeteer",
       "is_builtin": false,
-      "environmentVariables": []
+      "environmentVariables": [
+
+      ]
     }
   ]
 }

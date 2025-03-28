@@ -10,7 +10,18 @@
       "name": "Developer",
       "command": "developer",
       "is_builtin": true,
-      "environmentVariables": []
+      "environmentVariables": [
+        {
+          "name": "requirements",
+          "description": "Verbal description of data model requirements",
+          "required": true
+        },
+        {
+          "name": "use_cases",
+          "description": "List of use cases to validate against",
+          "required": true
+        }
+      ]
     }
   ]
 }

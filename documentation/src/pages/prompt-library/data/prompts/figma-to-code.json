@@ -10,7 +10,21 @@
       "name": "Developer",
       "command": "developer",
       "is_builtin": true,
-      "environmentVariables": []
+      "environmentVariables": [
+
+      ]
+    },
+    {
+      "name": "Figma",
+      "command": "npx -y @hapins/figma-mcp",
+      "is_builtin": false,
+      "environmentVariables": [
+        {
+          "name": "FIGMA_ACCESS_TOKEN",
+          "description": "Figma API access token",
+          "required": true
+        }
+      ]
     }
   ]
 }
