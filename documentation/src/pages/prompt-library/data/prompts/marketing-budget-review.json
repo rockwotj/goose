@@ -11,8 +11,13 @@
       "link": "https://block.github.io/goose/v1/extensions/google-drive",
       "environmentVariables": [
         {
-          "name": "time_period",
-          "description": "Time period for the review (e.g., Q1 2025)",
+          "name": "GDRIVE_OAUTH_PATH",
+          "description": "/Users/<username>/.config/gcp-oauth.keys.json \/ ",
+          "required": true
+        },
+        {
+          "name": "GDRIVE_CREDENTIALS_PATH",
+          "description": "/Users/<username>/.config/.gdrive-server-credentials.json \/",
           "required": true
         }
       ]

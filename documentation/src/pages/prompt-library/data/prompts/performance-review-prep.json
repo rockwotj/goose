@@ -16,13 +16,13 @@
       "is_builtin": false,
       "environmentVariables": [
         {
-          "name": "dimensions",
-          "description": "List of performance dimensions to sort feedback into",
+          "name": "GDRIVE_OAUTH_PATH",
+          "description": "/Users/<username>/.config/gcp-oauth.keys.json \/ ",
           "required": true
         },
         {
-          "name": "feedback_input",
-          "description": "Text or file containing feedback to sort",
+          "name": "GDRIVE_CREDENTIALS_PATH",
+          "description": "/Users/<username>/.config/.gdrive-server-credentials.json \/",
           "required": true
         }
       ]

@@ -16,29 +16,14 @@
       "is_builtin": false,
       "environmentVariables": [
         {
-          "name": "airtable_api_key",
-          "description": "Airtable API key",
+          "name": "GDRIVE_OAUTH_PATH",
+          "description": "/Users/<username>/.config/gcp-oauth.keys.json \/ ",
           "required": true
         },
         {
-          "name": "airtable_base_id",
-          "description": "Airtable base ID",
+          "name": "GDRIVE_CREDENTIALS_PATH",
+          "description": "/Users/<username>/.config/.gdrive-server-credentials.json \/",
           "required": true
-        },
-        {
-          "name": "google_sheets_id",
-          "description": "Google Sheets document ID",
-          "required": true
-        },
-        {
-          "name": "check_interval",
-          "description": "Interval between checks in minutes",
-          "required": false
-        },
-        {
-          "name": "notification_duration",
-          "description": "Duration to show notifications in seconds",
-          "required": false
         }
       ]
     }

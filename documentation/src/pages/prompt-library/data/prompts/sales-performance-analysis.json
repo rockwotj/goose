@@ -16,13 +16,13 @@
       "is_builtin": false,
       "environmentVariables": [
         {
-          "name": "month1",
-          "description": "Name of the first month's document",
+          "name": "GDRIVE_OAUTH_PATH",
+          "description": "/Users/<username>/.config/gcp-oauth.keys.json \/ ",
           "required": true
         },
         {
-          "name": "month2",
-          "description": "Name of the second month's document",
+          "name": "GDRIVE_CREDENTIALS_PATH",
+          "description": "/Users/<username>/.config/.gdrive-server-credentials.json \/",
           "required": true
         }
       ]

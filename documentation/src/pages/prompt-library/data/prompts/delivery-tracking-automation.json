@@ -10,8 +10,8 @@
       "is_builtin": false,
       "environmentVariables": [
         {
-          "name": "driver_id",
-          "description": "The unique identifier for the driver being tracked",
+          "name": "GOOGLE_MAPS_API_KEY",
+          "description": "<YOUR_TOKEN>",
           "required": true
         }
       ]
