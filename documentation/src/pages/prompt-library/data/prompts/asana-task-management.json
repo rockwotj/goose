@@ -1,22 +1,16 @@
 {
   "id": "asana-task-management",
-  "title": "Manage Asana Tasks",
-  "description": "Create, update, and manage Asana tasks and projects",
+  "title": "Asana Project Task Organization",
+  "description": "Organize and structure project tasks in Asana with proper dependencies and timelines",
   "category": "productivity",
-  "example_prompt": "Create a new task in my Asana workspace called 'Review Q4 metrics' and set the due date to next Friday. Then, find all tasks assigned to me that are due this week and summarize them.",
+  "job": "project-management",
+  "example_prompt": "Help me organize my project tasks in Asana. Create sections for Planning, Development, QA, and Launch. Include task dependencies, time estimates, and assign appropriate team members.",
   "extensions": [
     {
-      "name": "Asana",
-      "command": "npx -y @modelcontextprotocol/server-asana",
-      "is_builtin": false,
-      "environmentVariables": [
-        {
-          "name": "ASANA_ACCESS_TOKEN",
-          "description": "Your Asana Personal Access Token.",
-          "installation_notes": "Use OpenAI's GPT-4o was used for this prompt",
-          "required": true
-        }
-      ]
+      "name": "Developer",
+      "command": "developer",
+      "is_builtin": true,
+      "environmentVariables": []
     }
   ]
 }

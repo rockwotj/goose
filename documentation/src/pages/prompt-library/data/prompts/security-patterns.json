@@ -1,21 +1,16 @@
 {
-  "id": "developer-security-patterns",
-  "title": "Learn Security Vulnerability Patterns",
-  "description": "Store and analyze security vulnerability patterns and their relationships",
+  "id": "security-patterns",
+  "title": "Security Pattern Implementation",
+  "description": "Implement security patterns and best practices across systems",
   "category": "technical",
-  "example_prompt": "Goose, learn these security vulnerability patterns and their relationships:\n\n1. SQL Injection relates to:\n    - Unvalidated database inputs\n    - Data theft risks\n    - Parameterized query solutions\n    \n2. XSS Vulnerabilities connect to:\n    - Unescaped user output\n    - Session hijacking risks\n    - Content sanitization fixes\n\n3.Authentication Weaknesses link to:\n    - Session management\n    - Account compromise\n    - JWT-based solutions",
+  "job": "operations",
+  "example_prompt": "Review our system's security patterns and implement best practices. Focus on authentication, authorization, data encryption, and secure communication. Include compliance requirements and testing procedures.",
   "extensions": [
     {
-      "name": "Knowledge Graph",
-      "command": "npx -y @modelcontextprotocol/server-memory",
-      "is_builtin": false,
-      "environmentVariables": [
-        {
-          "name": "domain",
-          "description": "Security domain to focus on (e.g., 'web', 'mobile', 'api')",
-          "required": false
-        }
-      ]
+      "name": "Developer",
+      "command": "developer",
+      "is_builtin": true,
+      "environmentVariables": []
     }
   ]
 }

@@ -19,12 +19,14 @@ const categoryOptions: PillFilterOption[] = [
 
 const sidebarFilterGroups: SidebarFilterGroup[] = [
   {
-    title: "Extensions",
+    title: "Job",
     options: [
-      { label: "Developer", value: "developer" },
-      { label: "Google Drive", value: "google-drive" },
-      { label: "Puppeteer", value: "puppeteer" },
-      { label: "Filesystem", value: "filesystem" },
+      { label: "Engineering", value: "engineering" },
+      { label: "Design", value: "design" },
+      { label: "Project Management", value: "project-management" },
+      { label: "Marketing/Content", value: "marketing-content" },
+      { label: "Data Analytics", value: "data-analytics" },
+      { label: "Operations", value: "operations" }
     ],
   }
 ];
@@ -57,14 +59,14 @@ export default function HomePage() {
           );
         }
 
-        // Apply extension filters
+        // Apply job filters
         Object.entries(selectedFilters).forEach(([group, values]) => {
           if (values.length > 0) {
             filteredResults = filteredResults.filter(prompt => {
-              if (group === "Extensions") {
-                return prompt.extensions.some(ext => 
-                  values.includes(ext.command.toLowerCase())
-                );
+              if (group === "Job") {
+                console.log('Filtering for jobs:', values);
+                console.log('Current prompt:', prompt);
+                return values.includes(prompt.job);
               }
               return true;
             });
