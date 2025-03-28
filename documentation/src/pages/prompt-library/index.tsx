@@ -35,7 +35,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("featured");
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({});
   const promptsPerPage = 6;
 
