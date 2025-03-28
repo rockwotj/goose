@@ -114,7 +114,10 @@ export default function HomePage() {
           <PillFilter
             options={categoryOptions}
             selectedValue={selectedCategory}
-            onChange={setSelectedCategory}
+            onChange={(category) => {
+              setSelectedCategory(category);
+              setCurrentPage(1); // Reset to page 1 when category changes
+            }}
           />
         </div>
 
