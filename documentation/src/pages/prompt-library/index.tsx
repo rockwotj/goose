@@ -13,7 +13,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const promptsPerPage = 9; 
+  const promptsPerPage = 6; 
 
   useEffect(() => {
     const loadPrompts = async () => {

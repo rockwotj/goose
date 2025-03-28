@@ -1,0 +1,14 @@
+{
+  "id": "content-calendar-generator",
+  "title": "Create Content Calendar",
+  "description": "Generate a structured content calendar with topics, deadlines, and distribution channels",
+  "example_prompt": "Please create a content calendar for [Time Period] that includes:\n\n1. Content Topics\n2. Content Types (blog, social media, video, etc.)\n3. Publication Dates\n4. Distribution Channels\n5. Target Audience\n6. Key Messages/Themes\n7. Content Status\n\nFormat the calendar in a clear, organized structure that can be easily shared with the team.",
+  "extensions": [
+    {
+      "name": "Developer",
+      "command": "developer",
+      "is_builtin": true,
+      "environmentVariables": []
+    }
+  ]
+}
