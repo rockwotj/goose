@@ -10,7 +10,6 @@ import { PillFilter, type PillFilterOption } from "@site/src/components/ui/pill-
 import { SidebarFilter, type SidebarFilterGroup } from "@site/src/components/ui/sidebar-filter";
 
 const categoryOptions: PillFilterOption[] = [
-  { label: "Featured", value: "featured" },
   { label: "All", value: "all" },
   { label: "Business", value: "business" },
   { label: "Technical", value: "technical" },
@@ -37,7 +36,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("featured");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({});
   const promptsPerPage = 6;
 
@@ -49,11 +48,9 @@ export default function HomePage() {
 
         const results = await searchPrompts(searchQuery);
         
-        // Filter results based on category and featured status
+        // Filter results based on category
         let filteredResults = results;
-        if (selectedCategory === "featured") {
-          filteredResults = results.filter(prompt => prompt.featured);
-        } else if (selectedCategory !== "all") {
+        if (selectedCategory !== "all") {
           filteredResults = results.filter(prompt => 
             prompt.category === selectedCategory
           );

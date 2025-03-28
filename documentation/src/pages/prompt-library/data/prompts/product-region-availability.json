@@ -1,22 +1,16 @@
 {
-  "id": "sales-product-region-lookup",
-  "title": "Check Product Availability in Regions",
-  "description": "Research which countries and regions a product is available in",
+  "id": "product-region-availability",
+  "title": "Product Region Availability Analysis",
+  "description": "Analyze product availability across different regions",
   "category": "business",
-  "featured": true,
-  "example_prompt": "List ISO 3166-1 country codes where {product_name} is sold. Return JSON containing:\ncountry_codes: List of the ISO-3166-1 country codes that are valid for this device\ndevice_model: The model you have performed the lookup for\nis_north_america: Whether or not the specified device is expected to acquired easily in north america",
+  "job": "project-management",
+  "example_prompt": "Analyze our product availability across different regions. Check compliance requirements, market restrictions, and technical limitations. Create a deployment strategy.",
   "extensions": [
     {
-      "name": "Computer Controller",
-      "command": "computercontroller",
+      "name": "Developer",
+      "command": "developer",
       "is_builtin": true,
-      "environmentVariables": [
-        {
-          "name": "product_name",
-          "description": "The name/model of the product to look up regional availability for",
-          "required": true
-        }
-      ]
+      "environmentVariables": []
     }
   ]
 }

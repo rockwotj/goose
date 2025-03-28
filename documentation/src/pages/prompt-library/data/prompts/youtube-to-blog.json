@@ -1,15 +1,15 @@
 {
   "id": "youtube-to-blog",
-  "title": "Convert YouTube Video to Blog Post",
-  "description": "Generate a blog post from a YouTube video transcript",
+  "title": "YouTube to Blog Conversion",
+  "description": "Convert YouTube video content into blog articles",
   "category": "productivity",
-  "featured": true,
-  "example_prompt": "Get the transcript from this youtube video [link to video]. Then, summarize it into a blog post.",
+  "job": "marketing-content",
+  "example_prompt": "Convert this YouTube video into a blog article. Maintain key points, include proper formatting, and optimize for SEO. Add relevant images and call-to-action sections.",
   "extensions": [
     {
-      "name": "YouTube Transcript",
-      "command": "uvx --from git+https://github.com/jkawamoto/mcp-youtube-transcript mcp-youtube-transcript",
-      "is_builtin": false,
+      "name": "Developer",
+      "command": "developer",
+      "is_builtin": true,
       "environmentVariables": []
     }
   ]
