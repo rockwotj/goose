@@ -11,12 +11,6 @@
       "environmentVariables": []
     },
     {
-      "name": "Developer",
-      "command": "developer",
-      "is_builtin": true,
-      "environmentVariables": []
-    },
-    {
       "name": "Google Drive",
       "command": "google_drive",
       "is_builtin": false,
