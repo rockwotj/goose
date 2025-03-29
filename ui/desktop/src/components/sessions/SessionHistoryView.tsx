@@ -65,6 +65,7 @@ const SessionHistoryView: React.FC<SessionHistoryViewProps> = ({
       // Create a shared session
       const shareToken = await createSharedSession(
         config.baseUrl,
+        session.metadata.working_dir,
         session.messages,
         session.metadata.description || 'Shared Session',
         session.metadata.total_tokens
