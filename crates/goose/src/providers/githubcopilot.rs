@@ -8,7 +8,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use std::fs;
 use std::path::PathBuf;
 use std::time::Duration;
 
@@ -16,6 +15,7 @@ use super::base::{Provider, ProviderMetadata, ProviderUsage, Usage};
 use super::errors::ProviderError;
 use super::formats::openai::{create_request, get_usage, response_to_message};
 use super::utils::{emit_debug_trace, get_model, handle_response_openai_compat, ImageFormat};
+use crate::config::{Config, ConfigError};
 use crate::message::Message;
 use crate::model::ModelConfig;
 use mcp_core::tool::Tool;
@@ -63,8 +63,7 @@ struct CopilotTokenInfo {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 struct CopilotState {
-    refresh_token: String,
-    info_expires_at: DateTime<Utc>,
+    expires_at: DateTime<Utc>,
     info: CopilotTokenInfo,
 }
 
@@ -95,7 +94,7 @@ impl DiskCache {
             tokio::fs::create_dir_all(parent).await?;
         }
         let contents = serde_json::to_string(info)?;
-        fs::write(&self.cache_path, contents)?;
+        tokio::fs::write(&self.cache_path, contents).await?;
         Ok(())
     }
 }
@@ -151,43 +150,33 @@ impl GithubCopilotProvider {
     async fn get_api_info(&self) -> Result<(String, String)> {
         let guard = self.mu.lock().await;
 
-        let mut refresh_token: Option<String> = None;
-
         if let Some(state) = guard.borrow().as_ref() {
-            if state.info_expires_at > Utc::now() {
+            if state.expires_at > Utc::now() {
                 return Ok((state.info.endpoints.api.clone(), state.info.token.clone()));
             }
-            refresh_token = Some(state.refresh_token.clone());
         }
 
         if let Some(state) = self.cache.load().await {
             if guard.borrow().is_none() {
                 guard.replace(Some(state.clone()));
             }
-            if state.info_expires_at > Utc::now() {
+            if state.expires_at > Utc::now() {
                 return Ok((state.info.endpoints.api, state.info.token));
-            }
-            if refresh_token.is_none() {
-                refresh_token = Some(state.refresh_token);
             }
         }
 
         const MAX_ATTEMPTS: i32 = 3;
         for attempt in 0..MAX_ATTEMPTS {
             tracing::trace!("attempt {} to refresh api info", attempt + 1);
-            let (token, info) = match self.refresh_api_info(refresh_token.clone()).await {
+            let info = match self.refresh_api_info().await {
                 Ok(data) => data,
                 Err(err) => {
                     tracing::warn!("failed to refresh api info: {}", err);
                     continue;
                 }
             };
-            let info_expires_at = Utc::now() + chrono::Duration::seconds(info.refresh_in);
-            let new_state = CopilotState {
-                refresh_token: token,
-                info,
-                info_expires_at,
-            };
+            let expires_at = Utc::now() + chrono::Duration::seconds(info.refresh_in);
+            let new_state = CopilotState { info, expires_at };
             self.cache.save(&new_state).await?;
             guard.replace(Some(new_state.clone()));
             return Ok((new_state.info.endpoints.api, new_state.info.token));
@@ -195,16 +184,21 @@ impl GithubCopilotProvider {
         Err(anyhow!("failed to get api info after 3 attempts"))
     }
 
-    async fn refresh_api_info(
-        &self,
-        access_token: Option<String>,
-    ) -> Result<(String, CopilotTokenInfo)> {
-        let token = match access_token {
-            Some(token) => token,
-            None => self
-                .get_access_token()
-                .await
-                .context("unable to get auth token")?,
+    async fn refresh_api_info(&self) -> Result<CopilotTokenInfo> {
+        let config = Config::global();
+        let token = match config.get_secret::<String>("GITHUB_TOKEN") {
+            Ok(token) => token,
+            Err(err) => match err {
+                ConfigError::NotFound(_) => {
+                    let token = self
+                        .get_access_token()
+                        .await
+                        .context("unable to login into github")?;
+                    config.set_secret("GITHUB_TOKEN", Value::String(token.clone()))?;
+                    token
+                }
+                _ => return Err(err.into()),
+            },
         };
         let resp = self
             .client
@@ -218,7 +212,7 @@ impl GithubCopilotProvider {
             .await?;
         tracing::trace!("copilot token response: {}", resp);
         let info: CopilotTokenInfo = serde_json::from_str(&resp)?;
-        Ok((token, info))
+        Ok(info)
     }
 
     async fn get_access_token(&self) -> Result<String> {
